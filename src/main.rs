@@ -3,23 +3,22 @@ use std::cmp::Ordering;
 use rand::Rng;
 
 fn main() {
-    println!("숫지를 맞춰봅시다!");
-    let secret_number = rand::thread_rng().gen_range(1,11);
+    println!("숫자를 맞추기 게임!");
+    let secret_number = rand::thread_rng().gen_range(1,101);
     //println!("사용자가 맞춰야할 숫자 : {}", secret_number);
     loop {
-        println!("정답이라고 생각하는 숫자를 입력하세요 -> ");
+        println!("정답이라고 생각하는 숫자를 입력하세요 ->");
         let mut guess = String::new();
         // ::문법 -> new라는 함수가 String타입에 연관함수
         // 시작을 std::io해서 굳이 use를 안해줘도 ㄱㅊ
         io::stdin().read_line(&mut guess).expect("입력한 값을 읽지 못했습니다.");
-        let guess: u32 = match guess.trim().parse(){
+        let guess: u32 = match guess.trim().parse(){ // trim 양쪽 공백문자 제거 왜냐? 입력시 ex) 5/n 처럼 되니까
             Ok(num) => num,
             Err(_) => {
                 println!("올바른 값을 입력해주세요");
                 continue;
             }
         };
-        // trim 양쪽 공백문자 제거 왜냐? 입력시 ex) 5/n 처럼 되니까
         println!("입력한 값: {}", guess);
 
         match guess.cmp(&secret_number) {
